@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 class Crashlytics {
   const Crashlytics(this._crashlytics);
 
-  String get _logPrefix => 'Analytics: ';
+  String get _logPrefix => 'Crashlytics: ';
 
   final FirebaseCrashlytics _crashlytics;
 
