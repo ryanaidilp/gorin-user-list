@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:user_list_task/shared/data/models/profile.dart';
 
 @LazySingleton()
 class Firestore {
@@ -14,18 +17,40 @@ class Firestore {
       );
 
   Future<bool> setUserData({
+    required String id,
     required String email,
     required String name,
     required String avatar,
   }) async {
     try {
-      await _firestore.collection('users').doc(email).set({
+      await _firestore.collection('users').doc(id).set({
+        'email': email,
         'name': name,
         'avatar': avatar,
       });
       return true;
     } catch (e) {
+      log('$_logPrefix$e');
       return false;
+    }
+  }
+
+  Future<Profile?> getUserData({
+    required String id,
+  }) async {
+    try {
+      final result = await _firestore
+          .collection('users')
+          .doc(id)
+          .withConverter(
+            fromFirestore: Profile.fromFirestore,
+            toFirestore: (Profile profile, _) => profile.toJson(),
+          )
+          .get();
+      return result.data();
+    } catch (e) {
+      log('$_logPrefix$e');
+      return null;
     }
   }
 
@@ -52,6 +77,7 @@ class Firestore {
       await user.update(data);
       return true;
     } catch (e) {
+      log('$_logPrefix$e');
       return false;
     }
   }

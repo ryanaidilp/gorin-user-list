@@ -34,9 +34,14 @@ class Auth {
     return data;
   }
 
-  Future<void> login(String email, String password) async {
+  Future<User?> login(String email, String password) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      final result = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return result.user;
     } on FirebaseAuthException catch (e) {
       if (e.code.contains('user-not-found')) {
         throw UserNotFoundException();
@@ -47,19 +52,20 @@ class Auth {
     }
   }
 
-  Future<void> register(String email, String password) async {
+  Future<User?> register(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
+      final result = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      return result.user;
     } on FirebaseAuthException catch (e) {
       if (e.code.contains('email-already-in-use')) {
         throw DuplicateAccountException();
       }
-      throw RegistrationException();
+      rethrow;
     } catch (e) {
-      throw RegistrationException();
+      rethrow;
     }
   }
 
