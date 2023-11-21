@@ -9,7 +9,6 @@ import 'package:user_list_task/features/kyc/presentation/pages/sign_up_page.dart
 import 'package:user_list_task/features/startup/presentation/pages/startup_page.dart';
 import 'package:user_list_task/router/guards/auth_guard.dart';
 import 'package:user_list_task/router/guards/guest_guard.dart';
-import 'package:user_list_task/router/wrappers/page_wrapper.dart';
 
 part 'app_router.gr.dart';
 
@@ -21,37 +20,30 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
+          initial: true,
           path: '/',
-          page: RouteWrapper.page,
-          children: [
-            AutoRoute(
-              initial: true,
-              path: 'splash',
-              page: StartupRoute.page,
-            ),
-              AutoRoute(
-              path: 'sign-up',
-              guards: [
-                GuestGuard(),
-              ],
-              page: SignUpRoute.page,
-            ),
-            AutoRoute(
-              path: 'sign-in',
-              guards: [
-                GuestGuard(),
-              ],
-              page: SignInRoute.page,
-            ),
-            AutoRoute(
-              path: 'home',
-              guards: [
-                AuthGuard(),
-              ],
-              page: HomeRoute.page,
-            ),
-          ],
+          page: StartupRoute.page,
         ),
-      
+        AutoRoute(
+          path: '/sign-up',
+          guards: [
+            GuestGuard(),
+          ],
+          page: SignUpRoute.page,
+        ),
+        AutoRoute(
+          path: '/sign-in',
+          guards: [
+            GuestGuard(),
+          ],
+          page: SignInRoute.page,
+        ),
+        AutoRoute(
+          path: '/home',
+          guards: [
+            AuthGuard(),
+          ],
+          page: HomeRoute.page,
+        ),
       ];
 }
