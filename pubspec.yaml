@@ -13,7 +13,6 @@ dependencies:
   cloud_firestore: ^4.13.1
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
-  envied: ^0.5.2
   equatable: ^2.0.5
   file_picker: ^6.1.1
   firebase_auth: ^4.14.0
@@ -38,7 +37,6 @@ dependencies:
 dev_dependencies:
   auto_route_generator: ^7.3.2
   build_runner: ^2.4.6
-  envied_generator: ^0.5.2
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
