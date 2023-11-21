@@ -27,3 +27,6 @@ class RegistrationException extends BaseException {
           'There is something wrong when trying to create your account!',
         );
 }
+class DatabaseException extends BaseException {
+  DatabaseException() : super('User credentials not found!');
+}
