@@ -12,9 +12,10 @@ class Firestore {
 
   final FirebaseFirestore _firestore;
 
-  Stream<dynamic> getAllUsers() => _firestore.collection('users').snapshots(
-        includeMetadataChanges: true,
-      );
+  Stream<QuerySnapshot> getAllUsers() =>
+      _firestore.collection('users').snapshots(
+            includeMetadataChanges: true,
+          );
 
   Future<bool> setUserData({
     required String id,
